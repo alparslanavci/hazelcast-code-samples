@@ -1,6 +1,7 @@
 package com.hazelcast.springHibernate;
 
-import com.hazelcast.core.Hazelcast;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,9 +11,10 @@ public class Application {
         InitializeDB.start();
 
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        DistributedMapDemonstrator distributedMapDemonstrator = context.getBean(DistributedMapDemonstrator.class);
-        distributedMapDemonstrator.demonstrate();
+        SessionFactory sessionFactory = context.getBean(SessionFactory.class);
+        Session session = sessionFactory.openSession();
+        Customer customer = session.get(Customer.class, "1");
+        System.out.println(customer.getName());
 
-        Hazelcast.shutdownAll();
     }
 }

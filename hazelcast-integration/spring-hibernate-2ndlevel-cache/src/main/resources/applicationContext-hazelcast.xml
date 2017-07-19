@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	    http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.hazelcast.com/schema/spring
-        http://www.hazelcast.com/schema/spring/hazelcast-spring-3.9.xsd">
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-3.7.xsd">
 
     <hz:map id="customerMap" name="customerMap" instance-ref="instance"/>
 
@@ -13,6 +13,8 @@
             <hz:instance-name>${hz.instance.name}</hz:instance-name>
 
             <hz:group name="${hz.group.name}" password="${hz.group.password}"/>
+
+            <hz:management-center enabled="true" url="http://localhost:8080/mancenter"/>
 
             <hz:network port="${hz.network.port}" port-auto-increment="${hz.network.port.auto.increment}">
                 <hz:join>
@@ -23,8 +25,7 @@
             </hz:network>
 
             <hz:map name="customerMap">
-                <hz:map-store write-delay-seconds="0" class-name="com.hazelcast.springHibernate.CustomerMapLoader"
-                              enabled="true"/>
+
             </hz:map>
         </hz:config>
     </hz:hazelcast>

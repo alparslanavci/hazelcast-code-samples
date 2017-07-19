@@ -21,17 +21,8 @@
         </property>
     </bean>
 
-    <bean id="distributedMapService" class="com.hazelcast.springHibernate.DistributedMapService">
-        <constructor-arg ref="customerMap"/>
-    </bean>
-
-    <bean id="distributedMapDemonstrator" class="com.hazelcast.springHibernate.DistributedMapDemonstrator">
-        <property name="distributedMapService" ref="distributedMapService"/>
-    </bean>
-
     <bean id="customerDAO" class="com.hazelcast.springHibernate.CustomerDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="applicationContextUtil" class="com.hazelcast.springHibernate.ApplicationContextUtil"/>
 </beans>
