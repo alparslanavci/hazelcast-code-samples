@@ -4,6 +4,7 @@ package com.hazelcast.hibernate;
  * @author Esref Ozturk <esrefozturk93@gmail.com>
  */
 @SuppressWarnings("unused")
+//@Cache(usage= CacheConcurrencyStrategy.TRANSACTIONAL, region="employee")
 public class Employee {
 
     private int id;

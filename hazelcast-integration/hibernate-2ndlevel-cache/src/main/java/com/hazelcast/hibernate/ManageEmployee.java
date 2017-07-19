@@ -1,5 +1,9 @@
 package com.hazelcast.hibernate;
 
+import com.hazelcast.config.Config;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,6 +18,12 @@ public class ManageEmployee {
 
     @SuppressWarnings({"checkstyle:cyclomaticcomplexity", "checkstyle:methodlength"})
     public static void main(String[] args) {
+        Config config = new Config();
+        config.setInstanceName("myInstance");
+        config.getManagementCenterConfig().setEnabled(true).setUrl("http://localhost:8080/mancenter");
+        HazelcastInstance hz = Hazelcast.newHazelcastInstance(config);
+        IMap<Object, Object> map = hz.getMap("hopp!");
+        map.put(1,1);
         SessionFactory factory;
         try {
             factory = new Configuration().configure().buildSessionFactory();
@@ -64,6 +74,16 @@ public class ManageEmployee {
                 Employee employee;
                 employee = (Employee) currentSession.get(Employee.class, employeeId);
                 currentSession.delete(employee);
+            } else if (command.equals("get")) {
+                System.out.print("EmployeeID: ");
+                int employeeId = reader.nextInt();
+                reader.nextLine();
+                Employee employee;
+                employee = (Employee) currentSession.get(Employee.class, employeeId);
+                System.out.print("Id: " + employee.getId());
+                System.out.print(", first name: " + employee.getFirstName());
+                System.out.print(", last name: " + employee.getLastName());
+                System.out.println(", salary: " + employee.getSalary());
             } else if (command.equals("close")) {
                 currentTx.commit();
                 currentSession.close();
@@ -83,20 +103,21 @@ public class ManageEmployee {
                 System.out.println("help         this menu");
                 System.out.println("list         list all employees");
                 System.out.println("add          add an employee");
-                System.out.println("delete       delete and employee");
+                System.out.println("delete       delete an employee");
+                System.out.println("get          get an employee");
                 System.out.println("open         open session and begin transaction");
                 System.out.println("close        commit transaction and close session");
                 System.out.println("change       change between two sessions");
                 System.out.println("exit         exit");
             } else if (command.equals("exit")) {
-                if (!tx1.wasCommitted()) {
+//                if (!tx1.wasCommitted()) {
                     tx1.commit();
                     session1.close();
-                }
-                if (!tx2.wasCommitted()) {
+//                }
+//                if (!tx2.wasCommitted()) {
                     tx2.commit();
                     session2.close();
-                }
+//                }
                 factory.close();
                 break;
             } else if (command.equals("change")) {
