@@ -49,13 +49,13 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-jca</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-jca-rar</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.2</version>
             <type>rar</type>
         </dependency>
         <dependency>
@@ -72,6 +72,11 @@
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>

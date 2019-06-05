@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 public class Hello extends HttpServlet {
     private static final long serialVersionUID = -8314035702649252239L;
 
-    @Resource(mappedName = "java:/HazelcastCF")
+    @Resource(name = "HazelcastCF")
     protected ConnectionFactory connectionFactory;
 
     @Override
