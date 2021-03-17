@@ -25,11 +25,12 @@ public class HazelcastSessionReplication extends HttpServlet {
         if (request.getParameter("action") != null) {
             if (request.getParameter("action").equals("Set Attribute") && request.getParameter("key") != null
                     && !request.getParameter("value").equals("null")) {
-                session.setAttribute(request.getParameter("key"), request.getParameter("value"));
+                session.setAttribute(request.getParameter("key"), new TestClass("testText", 1));
             }
 
             if (request.getParameter("action").equals("Get Attribute") && request.getParameter("key") != null) {
-                request.setAttribute("getKey", session.getAttribute(request.getParameter("key")));
+                TestClass object = (TestClass) session.getAttribute(request.getParameter("key"));
+                request.setAttribute("getKey", object.getText());
             }
 
             if (request.getParameter("action").equals("Delete Attribute") && request.getParameter("key") != null) {
